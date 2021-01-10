@@ -1,0 +1,47 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ユーザー情報
+model User {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  email     String    @unique
+  password  String
+  name      String
+  Voters    IsVoted[]
+}
+
+// ユーザーがすでに投票したかを管理
+model IsVoted {
+  id       Int      @id @default(autoincrement())
+  vorter   User     @relation(fields: [vorterId], references: [id])
+  vorterId Int
+  votedAt  DateTime @default(now())
+}
+
+// 投票の現在の状況を調べる
+model VoteAggregate {
+  id           Int  @id @default(autoincrement())
+  isVotedWhere Int
+  vote         Vote @relation(fields: [voteId], references: [id])
+  voteId       Int
+}
+
+// 投票情報
+model Vote {
+  id              Int             @id @default(autoincrement())
+  title           String
+  leftImageTitle  String
+  rightImageTitle String
+  endDateTime     DateTime
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  VoteAggregate   VoteAggregate[]
+}
