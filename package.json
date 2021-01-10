@@ -1,29 +1,19 @@
 {
-  "name": "own-social-login-service-backend",
+  "name": "online-voting",
   "version": "1.0.0",
-  "description": "```txt\r # Server settings\r PORT = 3000\r NODE_ENV = development",
+  "description": "![image](https://github.com/Frog-kt/online-voting/blob/main/document/image.jpg)",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "start": "npm run build:live",
-    "dev": "npm run build:live",
-    "prod": "SET NODE_ENV=production& npm run build:live",
-    "build": "tsc -p .",
-    "build:live": "nodemon --watch ./src/**/*.ts --exec ts-node ./src/app.ts",
-    "lint": "eslint . --ext ts",
-    "lint-fix": "eslint --fix ./src/**/*.ts",
-    "test": "jest --detectOpenHandles"
+    "start": "node dist/index.js",
+    "build": "tsup src/index.ts --format cjs",
+    "dev": "nodemon --watch src --ext ts,js,json,graphql --exec ts-node -r tsconfig-paths/register src/app.ts",
+    "migrate": "prisma migrate dev --preview-feature",
+    "g:prisma": "prisma generate",
+    "prisma": "npx pnpm migrate && npx pnpm g:prisma"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/own-inc/own-social-login-service-backend.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/own-inc/own-social-login-service-backend/issues"
-  },
-  "homepage": "https://github.com/own-inc/own-social-login-service-backend#readme",
   "devDependencies": {
     "@prisma/cli": "^2.14.0",
     "@types/bcryptjs": "^2.4.2",
@@ -52,7 +42,9 @@
     "supertest": "^6.0.1",
     "ts-jest": "^26.4.4",
     "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "@types/bcrypt": "^3.0.0",
+    "nodemon": "^2.0.6"
   },
   "dependencies": {
     "@prisma/client": "^2.14.0",
@@ -79,6 +71,17 @@
     "rotating-file-stream": "^2.1.3",
     "superagent": "^6.1.0",
     "validator": "^13.5.2",
-    "xss-clean": "^0.1.1"
-  }
+    "xss-clean": "^0.1.1",
+    "bcrypt": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frog-kt/online-voting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Frog-kt/online-voting/issues"
+  },
+  "homepage": "https://github.com/Frog-kt/online-voting#readme"
 }

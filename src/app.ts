@@ -47,7 +47,7 @@ app.use([
 ]);
 
 // Router
-app.use(registRoutes);
+registRoutes(app);
 
 app.get('/ping', async (req, res) => {
   res.send({
