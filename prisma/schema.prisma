@@ -9,7 +9,7 @@ generator client {
 
 // ユーザー情報
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(cuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   email     String    @unique
@@ -22,21 +22,21 @@ model User {
 model IsVoted {
   id       Int      @id @default(autoincrement())
   vorter   User     @relation(fields: [vorterId], references: [id])
-  vorterId Int
+  vorterId String
   votedAt  DateTime @default(now())
 }
 
 // 投票の現在の状況を調べる
 model VoteAggregate {
-  id           Int  @id @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   isVotedWhere Int
-  vote         Vote @relation(fields: [voteId], references: [id])
-  voteId       Int
+  vote         Vote   @relation(fields: [voteId], references: [id])
+  voteId       String
 }
 
 // 投票情報
 model Vote {
-  id              Int             @id @default(autoincrement())
+  id              String          @id @default(cuid())
   title           String
   leftImageTitle  String
   rightImageTitle String

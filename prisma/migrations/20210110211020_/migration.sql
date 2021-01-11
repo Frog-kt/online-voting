@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
-"id" SERIAL,
+    "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "email" TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "IsVoted" (
 "id" SERIAL,
-    "vorterId" INTEGER NOT NULL,
+    "vorterId" TEXT NOT NULL,
     "votedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     PRIMARY KEY ("id")
@@ -23,14 +23,14 @@ CREATE TABLE "IsVoted" (
 CREATE TABLE "VoteAggregate" (
 "id" SERIAL,
     "isVotedWhere" INTEGER NOT NULL,
-    "voteId" INTEGER NOT NULL,
+    "voteId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Vote" (
-"id" SERIAL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "leftImageTitle" TEXT NOT NULL,
     "rightImageTitle" TEXT NOT NULL,
