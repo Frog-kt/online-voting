@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
 import config from './config';
 import express from 'express';
 import ErrorHandler from './utils/errorHandler';
 import errorMiddleware from './middlewares/errors';
 
+import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -12,8 +15,6 @@ import hpp from 'hpp';
 import rateLimit from 'express-rate-limit';
 
 import { registRoutes } from '@/routes';
-
-dotenv.config();
 
 const app = express();
 
@@ -37,7 +38,8 @@ if (config.node_env === 'production') {
 
 app.use([
   rateLimit({ windowMs: 10 * 60 * 1000, max: 100 }),
-
+  bodyParser.json(),
+  bodyParser.urlencoded({ extended: true }),
   helmet(),
   hpp(),
   cookieParser(),
