@@ -1,0 +1,7 @@
+@baseUrl=http://localhost:3000/api/v1/vote
+@token=token
+
+###
+
+# 投票一覧の取得
+GET {{baseUrl}}/
