@@ -5,11 +5,18 @@ import Joi from 'joi';
 
 import ErrorHandler from '../utils/ErrorHandler';
 import catchAsyncErrors from '../middlewares/catchAsyncErrors';
+import { sendJwtToken, getJwtToken } from '../utils/jwt';
+import { matchPassword } from '@/lib';
 import config from '../config';
 // import { ModelUser } from '@/db.types';
 
 interface NewAccountArgs {
   name: string;
+  email: string;
+  password: string;
+}
+
+interface LoginArgs {
   email: string;
   password: string;
 }
