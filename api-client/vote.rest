@@ -1,10 +1,21 @@
 @baseUrl=http://localhost:3000/api/v1/vote
-@token=token
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNranNvbWd5MTAwMDE0Z3Y5eHRma2ZyNWMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNjEwMzg5NjQyLCJleHAiOjE2MTA5OTQ0NDJ9.F0MoAN9cLiHSvq_2xA2_3Md3U41CFTggMZ6nhnZVNuA
 
 ###
 
 # 投票一覧の取得
 GET {{baseUrl}}/
+
+###
+
+# 投票の作成
+POST {{baseUrl}}/
+content-type: application/json
+Authorization: {{token}}
+
+{
+  "greeting":"hello"
+}
 
 ###
 
