@@ -5,3 +5,10 @@
 
 # 投票一覧の取得
 GET {{baseUrl}}/
+
+###
+
+GET {{baseUrl}}/search/title/最強
+
+###
+GET {{baseUrl}}/search/tag/ほげ
