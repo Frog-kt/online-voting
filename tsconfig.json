@@ -19,9 +19,10 @@
         "src/*"
       ]
     },
+    "typeRoots": ["src/@types", "node_modules/@types"],  
   },
   "include": [
-    "src/**/*.ts", "src/@types/express/types.d.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"
