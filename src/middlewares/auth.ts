@@ -24,7 +24,7 @@ export const requireAuth = catchAsyncErrors(
 
     const decoded = jwt.verify(token, config.jwt.secret);
 
-    req.user.id = (decoded as IJwtData).id;
+    req.user = (decoded as IJwtData).id;
     next();
   },
 );
