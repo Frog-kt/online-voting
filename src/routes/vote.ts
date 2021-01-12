@@ -6,7 +6,6 @@ import { requireAuth } from '../middlewares/auth';
 const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
-// 開催中の投票一覧取得
-router.get('/', showVotes);
+router.get('/', showVotes); // 開催中の投票一覧取得
 
 export default router;
