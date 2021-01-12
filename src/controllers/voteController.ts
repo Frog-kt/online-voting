@@ -157,8 +157,6 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(err, 400));
   }
 
-  console.log(request);
-
   const { title, imagePath, endDateTime, leftImageTitle, rightImageTitle } = request as NewVoteArgs;
 
   let saveVote;
@@ -175,8 +173,6 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
   } catch (err) {
     return next(new ErrorHandler(err, 401));
   }
-
-  console.log(saveVote);
 
   res.status(200).json(saveVote);
 });
