@@ -181,4 +181,7 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json(saveVote);
 });
 
+// 新しい投票用の画像をアップロード
+export const uploadImage = catchAsyncErrors(async (req, res, next) => {
+  // !ここヘルプ
 });
