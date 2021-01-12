@@ -139,20 +139,6 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
 
 // 新しい投票用の画像をアップロード
 export const uploadImage = catchAsyncErrors(async (req, res, next) => {
-  // const file = req.file;
-  // console.log(file);
-  // const imageId = uuid();
-
-  // if (!checkFileExt(file.mimetype)) {
-  //   return next(new ErrorHandler('Upload only accept jpeg, png, svg, gif and webp file.', 400));
-  // }
-
-  // try {
-  //   fs.writeFileSync(`./upload/${imageId}.jpg`, file.buffer, 'binary');
-  // } catch (err) {
-  //   console.log(err);
-  //   return next(new ErrorHandler('Upload failed.', 500));
-  // }
   const tmp_path = req.file.path;
   const target_path = 'upload/' + req.file.originalname;
 
