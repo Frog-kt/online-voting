@@ -9,6 +9,7 @@ import ErrorHandler from '../utils/ErrorHandler';
 import catchAsyncErrors from '../middlewares/catchAsyncErrors';
 import { sendJwtToken, getJwtToken } from '../utils/jwt';
 import config from '../config';
+import vote from '@/routes/vote';
 
 interface NewVoteArgs {
   title: string;
@@ -213,13 +214,28 @@ export const participateInVoting = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler('Already voted.', 400));
   }
 
+  // 投票トランザクション
   // 投票を実行
-  const voteExec = await prisma.voteAggregate.create({
+  const voteCountExec = prisma.voteAggregate.create({
     data: {
       isVotedWhere: destination,
-      vote: {  },
+      vote: {
+        connect: { id: voteId },
+      },
     },
   });
+  const isVoted = prisma.isVoted.create({
+    data: {
+      vorter: { connect: { id: vorterId } },
+      vote: { connect: { id: voteId } },
+    },
+  });
+
+  try {
+    const [resVoteCountExec, resIsVoted] = await prisma.$transaction([voteCountExec, isVoted]);
+  } catch (err) {
+    return next(new ErrorHandler(err, 500));
+  }
 
   res.status(200).send('hello');
 });
