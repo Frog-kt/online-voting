@@ -1,5 +1,6 @@
 @baseUrl=http://localhost:3000/api/v1/vote
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNranNvbWd5MTAwMDE0Z3Y5eHRma2ZyNWMiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNjEwMzg5NjQyLCJleHAiOjE2MTA5OTQ0NDJ9.F0MoAN9cLiHSvq_2xA2_3Md3U41CFTggMZ6nhnZVNuA
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNranUzOGU5MTAwMDM3d3Y5YWhnemN5cTgiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNjEwNDczNTM5LCJleHAiOjE2MTEwNzgzMzl9.49mLXeV4gMR1mKPntNGB0Ve8ATeHQn7Behw9TfTEoIg
+@vote-id=ckjtv20mi0000rsv9ahqf5qhv
 
 ###
 
@@ -19,6 +20,17 @@ Authorization: {{token}}
   "endDateTime":"1610683200000",
   "leftImageTitle":"Vim",
   "rightImageTitle":"Emacs"
+}
+
+###
+
+#投票に参加
+POST {{baseUrl}}/ckjua9xgt00087wv9j83j9sor
+content-type: application/json
+Authorization: {{token}}
+
+{
+  "destination":"left"
 }
 
 ###

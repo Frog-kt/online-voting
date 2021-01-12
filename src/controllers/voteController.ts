@@ -181,3 +181,45 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
 export const uploadImage = catchAsyncErrors(async (req, res, next) => {
   // !ここヘルプ
 });
+
+// 投票に参加する
+export const participateInVoting = catchAsyncErrors(async (req, res, next) => {
+  const destination: 'left' | 'right' = req.body.destination;
+  const voteId = req.params.voteId;
+  const vorterId = req.user;
+
+  console.log(vorterId, voteId);
+
+  // 投票が存在するか調べる
+  const voteDoesExist = await prisma.vote.findUnique({
+    where: {
+      id: voteId,
+    },
+  });
+
+  if (!voteDoesExist) {
+    return next(new ErrorHandler('Vote Not Found.', 404));
+  }
+
+  // 既に投票しているかを調べる
+  const voteCount = await prisma.isVoted.count({
+    where: {
+      vorterId: vorterId,
+      voteId: voteId,
+    },
+  });
+
+  if (!(voteCount === 0)) {
+    return next(new ErrorHandler('Already voted.', 400));
+  }
+
+  // 投票を実行
+  const voteExec = await prisma.voteAggregate.create({
+    data: {
+      isVotedWhere: destination,
+      vote: {  },
+    },
+  });
+
+  res.status(200).send('hello');
+});

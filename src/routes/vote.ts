@@ -1,6 +1,13 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { showVotes, searchVoteTitle, searchVoteTag, postVotes, uploadImage } from '../controllers/voteController';
+import {
+  showVotes,
+  searchVoteTitle,
+  searchVoteTag,
+  postVotes,
+  uploadImage,
+  participateInVoting,
+} from '../controllers/voteController';
 import { requireAuth } from '../middlewares/auth';
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -14,6 +21,6 @@ router.get('/search/title/:keyword', searchVoteTitle); // タイトルで検索
 router.get('/search/tag/:tagName', searchVoteTag); // タグで検索？
 
 router.get('/:voteId'); // 指定した投票を表示する
-router.post('/:voteId'); // 指定した投票に参加(投票)する
+router.post('/:voteId', requireAuth, participateInVoting); // 指定した投票に参加(投票)する
 
 export default router;

@@ -1,5 +1,5 @@
 @baseUrl=http://localhost:3000/api/v1/auth
-@email=example@example.com
+@email=example2@example.com
 @password=password
 
 ###

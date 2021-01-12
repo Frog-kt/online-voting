@@ -23,13 +23,15 @@ model IsVoted {
   id       Int      @id @default(autoincrement())
   vorter   User     @relation(fields: [vorterId], references: [id])
   vorterId String
+  vote     Vote     @relation(fields: [voteId], references: [id])
+  voteId   String
   votedAt  DateTime @default(now())
 }
 
 // 投票の現在の状況を調べる
 model VoteAggregate {
   id           Int    @id @default(autoincrement())
-  isVotedWhere Int
+  isVotedWhere String
   vote         Vote   @relation(fields: [voteId], references: [id])
   voteId       String
 }
@@ -45,4 +47,5 @@ model Vote {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   VoteAggregate   VoteAggregate[]
+  IsVoted         IsVoted[]
 }
