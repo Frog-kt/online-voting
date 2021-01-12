@@ -237,5 +237,5 @@ export const participateInVoting = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler(err, 500));
   }
 
-  res.status(200).send('hello');
+  res.status(200).json({ success: true });
 });
