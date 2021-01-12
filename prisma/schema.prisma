@@ -38,6 +38,7 @@ model VoteAggregate {
 model Vote {
   id              String          @id @default(cuid())
   title           String
+  imagePath       String
   leftImageTitle  String
   rightImageTitle String
   endDateTime     DateTime
