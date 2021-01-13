@@ -300,7 +300,5 @@ export const showVoteById = catchAsyncErrors(async (req, res, next) => {
     isVoted: isVoted,
   };
 
-  console.log(voteResponse);
-
-  res.status(200).send('ok');
+  res.status(200).json(voteResponse);
 });
