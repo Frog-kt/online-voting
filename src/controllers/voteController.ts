@@ -168,6 +168,8 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
         imagePath,
         leftImageTitle,
         rightImageTitle,
+        leftCounter: 0,
+        rightCounter: 0,
         endDateTime,
       },
     });
@@ -231,11 +233,74 @@ export const participateInVoting = catchAsyncErrors(async (req, res, next) => {
     },
   });
 
+  let incrementVote;
+  if (destination === 'left') {
+    incrementVote = prisma.vote.update({
+      where: { id: voteId },
+      data: {
+        leftCounter: { increment: 1 },
+      },
+    });
+  } else if (destination === 'right') {
+    incrementVote = prisma.vote.update({
+      where: { id: voteId },
+      data: {
+        rightCounter: { increment: 1 },
+      },
+    });
+  } else {
+    return next(new ErrorHandler('error', 500));
+  }
+
   try {
-    const [resVoteCountExec, resIsVoted] = await prisma.$transaction([voteCountExec, isVoted]);
+    const [resVoteCountExec, resIsVoted, resIncrimentCount] = await prisma.$transaction([
+      voteCountExec,
+      isVoted,
+      incrementVote,
+    ]);
   } catch (err) {
     return next(new ErrorHandler(err, 500));
   }
 
   res.status(200).json({ success: true });
+});
+
+// 指定したIDの投票を見る
+export const showVoteById = catchAsyncErrors(async (req, res, next) => {
+  const voteId = req.params.voteId;
+  const vorterId = req.user;
+
+  const voteById = await prisma.vote.findUnique({
+    where: { id: voteId },
+    include: {
+      isVoted: {
+        where: {
+          vorterId,
+          voteId,
+        },
+      },
+    },
+  });
+
+  let isVoted = false;
+  if (!(voteById.isVoted.length > 0)) isVoted = true;
+
+  const voteResponse = {
+    id: voteById.id,
+    title: voteById.title,
+    imagePath: voteById.imagePath,
+    leftTitle: voteById.leftImageTitle,
+    rightTitle: voteById.rightImageTitle,
+    count: {
+      left: voteById.leftCounter,
+      right: voteById.rightCounter,
+      all: voteById.leftCounter + voteById.rightCounter,
+    },
+    endDatetime: voteById.endDateTime,
+    isVoted: isVoted,
+  };
+
+  console.log(voteResponse);
+
+  res.status(200).send('ok');
 });

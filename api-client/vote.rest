@@ -1,5 +1,5 @@
 @baseUrl=http://localhost:3000/api/v1/vote
-@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNranVhYW5lZDAwMTI3d3Y5anVjZzlud2siLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNjEwNDgwMjU5LCJleHAiOjE2MTEwODUwNTl9.O9lTBf-1TpQW1TJRvVSJSIDmOe3jzJdcTPePQRL8mS0
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNranVoZHltajAwMDIzY3Y5dXBubnVxemEiLCJyb2xlIjpbInVzZXIiXSwiaWF0IjoxNjEwNDg1MzM2LCJleHAiOjE2MTEwOTAxMzZ9.1BuD78sorKsg032kP1W9d9wPR6N077B0UUUFYvPv49k
 @vote-id=ckjtv20mi0000rsv9ahqf5qhv
 
 ###
@@ -23,9 +23,12 @@ Authorization: {{token}}
 }
 
 ###
+# ID指定した投票を取得
+GET {{baseUrl}}/ckjum4plt000080v982lpdtvu
 
+###
 #投票に参加
-POST {{baseUrl}}/ckjua9xgt00087wv9j83j9sor
+POST {{baseUrl}}/ckjum4plt000080v982lpdtvu
 content-type: application/json
 Authorization: {{token}}
 

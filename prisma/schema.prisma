@@ -38,14 +38,16 @@ model VoteAggregate {
 
 // 投票情報
 model Vote {
-  id              String         @id @default(cuid())
+  id              String          @id @default(cuid())
   title           String
   imagePath       String
   leftImageTitle  String
   rightImageTitle String
+  leftCounter     Int
+  rightCounter    Int
   endDateTime     DateTime
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   voteAggregate   VoteAggregate[]
   isVoted         IsVoted[]
 }

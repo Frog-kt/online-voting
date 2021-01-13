@@ -7,6 +7,7 @@ import {
   postVotes,
   uploadImage,
   participateInVoting,
+  showVoteById,
 } from '../controllers/voteController';
 import { requireAuth } from '../middlewares/auth';
 
@@ -20,7 +21,7 @@ router.post('/image', requireAuth, upload.single('image'), uploadImage); // 画�
 router.get('/search/title/:keyword', searchVoteTitle); // タイトルで検索
 router.get('/search/tag/:tagName', searchVoteTag); // タグで検索？
 
-router.get('/:voteId'); // 指定した投票を表示する
+router.get('/:voteId', showVoteById); // 指定した投票を表示する
 router.post('/:voteId', requireAuth, participateInVoting); // 指定した投票に参加(投票)する
 
 export default router;
