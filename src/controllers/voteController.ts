@@ -19,6 +19,21 @@ interface NewVoteArgs {
   rightImageTitle: string;
 }
 
+interface VoteResponseArgs {
+  id: string;
+  title: string;
+  imagePath: string;
+  leftTitle: string;
+  rightTitle: string;
+  count: {
+    left: number;
+    right: number;
+    all: number;
+  };
+  endDatetime: Date;
+  isVoted: boolean;
+}
+
 // *投票の一覧を表示 (人気順)
 export const showVotes = catchAsyncErrors(async (req, res, next) => {
   const resObj = {
@@ -182,7 +197,11 @@ export const postVotes = catchAsyncErrors(async (req, res, next) => {
 
 // 新しい投票用の画像をアップロード
 export const uploadImage = catchAsyncErrors(async (req, res, next) => {
-  // !ここヘルプ
+  const file = req.file;
+  const filenames = file.originalname;
+  const mimetype = file.mimetype;
+  // デッバグのため、アップしたファイルの名前を表示する
+  console.log(file);
 });
 
 // 投票に参加する
@@ -285,7 +304,7 @@ export const showVoteById = catchAsyncErrors(async (req, res, next) => {
   let isVoted = false;
   if (!(voteById.isVoted.length > 0)) isVoted = true;
 
-  const voteResponse = {
+  const voteResponse: VoteResponseArgs = {
     id: voteById.id,
     title: voteById.title,
     imagePath: voteById.imagePath,
